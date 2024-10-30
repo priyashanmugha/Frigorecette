@@ -1,1 +1,10 @@
-node_modules
+
+# Dépendances
+node_modules/
+
+# Fichiers sensibles
+.env
+
+# Fichiers système
+.DS_Store
+Thumbs.db
