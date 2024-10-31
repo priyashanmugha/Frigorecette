@@ -4,12 +4,27 @@ import axios from "axios";
 // importer axios et faire une requete produits avec methode getProduits
 // lancer le back pour visualiser
 export const Produits = () => {
+  const produits = [
+    { id: 1, nom: "Produit X" },
+    { id: 2, nom: "Produit Y" },
+  ];
+  
+  function Produits() {
+    return (
+      <div>
+        {produits.map((produit) => (
+          <p key={produit.id}>{produit.nom}</p>
+        ))}
+      </div>
+    );
+  }
+  
   const [mesproduits, setMesproduits] = useState([]); // definitioon de la variable avec useState
   
   async function getProduits() {
     try {
       const response = await axios.get("http://localhost:3306/produits");
-      console.log(response.data);// on precise ici que l'on veut afficher dans la coonsole du nav que les data
+      console.log(response.data);// on precise ici que l'on veut afficher dans la console du nav que les data
       setMesproduits(response.data);// on stock les produits
 
     } catch (error) {

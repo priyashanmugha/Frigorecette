@@ -3,7 +3,23 @@ import axios from "axios";
 
 // requete pour récupérer les recettes depuis le back
 export const Recettes = () => {
+  
+  const recettes = [
+    { id: 1, nom: "Recette A" },
+    { id: 2, nom: "Recette B" },
+  ];
+  function Recettes() {
+    return (
+      <div>
+        {recettes.map((recette) => (
+          <p key={recette.id}>{recette.nom}</p> // Utilisez la propriété `id` comme clé unique
+        ))}
+      </div>
+    );
+  }
+  
   const[mesrecettes , setMesrecettes] = useState ([]);
+
   async function getRecettes() {
     try {
       const response = await axios.get("http://localhost:3306/recettes");
