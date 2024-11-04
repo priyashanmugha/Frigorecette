@@ -4,6 +4,8 @@ import React from 'react'
 import { Produits } from './Produits'
 import { Recettes } from './Recettes'
 import { RecettesAvailable } from './RecettesAvailable'
+import { AjouterProduits } from './AjouterProduits';
+import { AjouterRecettes } from './AjouterRecettes';
 
 
 //on retourne du jsx
@@ -14,7 +16,8 @@ export const Frigo = () => {
     <Recettes></Recettes>
     <Produits></Produits>
     <RecettesAvailable></RecettesAvailable>
-
+    <AjouterProduits></AjouterProduits>
+    <AjouterRecettes></AjouterRecettes>
     </div> 
 
   )

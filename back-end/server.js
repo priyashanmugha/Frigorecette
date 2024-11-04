@@ -2,10 +2,10 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql2");
-const bodyparser = require('body-parser')
 // importation Middleware pour gérer les requêtes Cross-Origin
 const cors = require("cors");
 app.use(cors());
+app.use(express.json())
 const port = 3306;
 
 // Utilisation de middleware
@@ -51,15 +51,21 @@ app.get("/recettes", (req, res) => {
 
 // requete recuperation des donnees saisies par l'utilisateur lors d'ajout de produits
 app.post("/ajouterproduits", (req, res) => {
+  console.log(req)
   const { nom, quantite, date_expiration, categorie } = req.body;
+  // l'objet req appartient à la class interface donc req a tjr un champs body
+  // on fait une deconstruction du body ligne champs par champs
   console.log(nom, quantite, date_expiration, categorie);
-  db.query(
-    `INSERT INTO produits (nom, quantite, date_expiration, categorie)VALUES ${nom}, ${quantite},${date_expiration}, ${categorie}`,
-  function (err, results, fields){
-    console.log("resultat", results);
-    res.send(`Requete post execute, ${results }`);
-  }
-);
+  // possibilité de faire 2 syntaxes qd on fait une requete sql soit une const sql qui insert un produit dans la table produits av des valeurs non connues def par ?
+  //const sql = '`INSERT INTO produits (nom, quantite, date_expiration, categorie)VALUES (?, ?, ?, ?)'
+  // soit la db query
+  db.query(`INSERT INTO produits (nom, quantite, date_expiration, categorie)
+    VALUES ('${nom}', '${quantite}','${date_expiration}', '${categorie}')`,// un simple cote doit encapsuler chaque champs pour 
+    function (err, results, fields){
+    console.log("resultat", results, err, fields);
+    res.send('post request pour ajouter un produit');
+    }
+  );
 });
 //Demarrage du serveur Express
 app.listen(port, () => {

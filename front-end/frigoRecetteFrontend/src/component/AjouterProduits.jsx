@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 
 
-export const AjouterProduits = (e) => {
-  const [status, setStatus] = useState(null);
-
- async  function handleSubmitPlusPropre(e) {
+export const AjouterProduits = () => {
+  
+  function handleSubmitPlusPropre(e) {
   e.preventDefault(); // Empêche le rechargement de la page
-
-    const formData = new FormData(e.target);
+    const form = e.target;// target est le champs de l'objet event avec lequel on a initialisé la var form
+    const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-
-    fetch("http://localhost:3306/ajouterproduit", {
-      method: e.method,
+    console.log(formJson, form.method)
+    fetch("http://localhost:3306/ajouterproduits", {
+      method: form.method,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(formJson),
     });

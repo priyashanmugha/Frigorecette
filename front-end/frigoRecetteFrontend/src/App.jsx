@@ -1,10 +1,6 @@
 import { useState } from 'react'
-import './App.css'
-import { Recettes } from './component/Recettes'
-import { Produits } from './component/Produits'
-import { RecettesAvailable} from './component/RecettesAvailable'
+
 import { Frigo } from './component/Frigo'
-import { AjouterProduits } from "./component/AjouterProduits";
 
 
 function App() {
@@ -13,7 +9,7 @@ function App() {
   return (
     <>
       <Frigo></Frigo>
-      <AjouterProduits />
+      
     </>
   )
 }
