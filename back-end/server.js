@@ -7,6 +7,49 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json())
 const port = 3306;
+// importation du package mongodb
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://priya:UllaipoCDA24@clusterfrigo.a7izu.mongodb.net/?retryWrites=true&w=majority&appName=ClusterFrigo";
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+// creation de la requete pour connexion a la BDD
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    //await client.close(); 
+    AfficherMesCollections();
+  }
+}
+
+// afficher le contenu de la liste des collections
+ function AfficherMesCollections(){
+  const dbName = "sample_mflix";
+  const db = client.db(dbName); //  db indique que toutes les données qu'on utilise dans cette BDD bien spécifique
+  db.listCollections()
+  .toArray()
+  .then((cols) =>
+    cols.map((col, index) => {
+      console.log(`Collections ${index}:`, col.name)
+  })
+  );
+}
+run().catch(console.dir);
+
+
+
 
 // Utilisation de middleware
 // app.use(cors()); // Permet les requêtes cross-origin (important pour les applications web modernes)
